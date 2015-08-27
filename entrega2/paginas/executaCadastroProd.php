@@ -10,10 +10,13 @@ $resposta		= 'Por favor rever campos do cadastro de produto!';//caso default = e
 $uploadOk 		= 1;
 $prodName    	= '';
 $prodDescrip 	= '';
-$prodUnitVal 	= '';
-$prodDescVal 	= '';
-$prodEstoqueVal = '';
+$prodUnitVal 	= 0;
+$prodDescVal 	= 0;
+$prodEstoqueVal = 0;
+$flagPossuiFoto = 0;
+$flagDesconto 	= 0;
 $prodImagem 	= '';
+
 
 if(isSet ($_POST['prodAtivo'])){
 	$prodAtivo=$_POST['prodAtivo'];
@@ -24,43 +27,37 @@ if(isSet ($_POST['prodAtivo'])){
 if(isSet ($_POST['prodName'])){
 	$prodName=$_POST['prodName'];
 }else{
-	$prodName = 0;
 	$uploadOk = 0;
 }
 
 if(isSet ($_POST['prodDescrip'])){
 	$prodDescrip=$_POST['prodDescrip'];
+	$flagDesconto=1;
 }else{
-	$prodDescrip = 0;
 	$uploadOk = 0;
 }
 
 if(isSet ($_POST['prodUnitVal'])){
-	$prodUnitVal=$_POST['prodUnitVal'];
+	$prodUnitVal=floatval($_POST['prodUnitVal']);
 }else{
-	$prodUnitVal = 0;
 	$uploadOk = 0;
 }
 
 if(isSet ($_POST['prodDescVal'])){
-	$prodDescVal=$_POST['prodDescVal'];
-}else{
-	$prodDescVal = 0;
-	$uploadOk = 0;
+	$prodDescVal=floatval($_POST['prodDescVal']);
 }
 
 if(isSet ($_FILES['imagem']["name"])){
 	$prodImagem=$_FILES['imagem']["name"];
+	$flagPossuiFoto=1;
+	
 }else{
-	$prodImagem = 0;
 	$uploadOk = 0;
 }
 
 
-//condição do desconto maior que o valor
-//condição do valor positivo
-
 if($uploadOk = 1){
+		
 	//TRATAMENTO DA IMAGEM
 	$target_dir = "uploads/";
 	$target_file = $target_dir . basename($_FILES["imagem"]["name"]);
@@ -93,21 +90,18 @@ if($uploadOk = 1){
 		$resposta =  "Desculpe, apenas os formatos JPG, JPEG, PNG & GIF são permitidos.";
 		$uploadOk = 0;
 	}
+	
+		
 	// Confere se a variável $uploadOk = 0 por causa de algum condicional acima
 	if ($uploadOk == 0) {
-		$resposta =  "Desculpe, não pude enviar sua imagem.";
+		$resposta =  "Por favor rever os dados do produto!";
 	// Se tudo estiver OK, tenta fazer upload do arquivo
 	} else {
 		if (move_uploaded_file($_FILES["imagem"]["tmp_name"], $target_file)) {
 			$resposta = $_POST['prodName']." cadastrado com sucesso!";
-			//echo "Imagem ". basename( $_FILES["imagem"]["name"]). " enviada com sucesso.";
-			$prodAtivo;
-			$prodName;
-			$prodDescrip;
-			$prodUnitVal;
-			$prodDescVal;
-			$prodEstoqueVal;
-			$prodImagem;
+			$conecta = new mysqli('localhost', 'root', '', 'entrega2') or print (mysql_error()); 
+			$query	= "insert into produtos (flagProdAtivo, flagPossuiFoto, flagDesconto, tituloProd, descriProd, valorProdUnit, valorDescProdUnit, fotoProd, estoqueProdAtual, estoqueProdAguardaVenda, estoqueProdVendido) values (".$prodAtivo.", ".$flagPossuiFoto.", ".$flagDesconto.", '".$prodName."', '".$prodDescrip."', ".$prodUnitVal.", ".$prodDescVal.", '".$prodImagem."', ".$prodEstoqueVal.", 0, 0)";
+			$result = $conecta->query($query);		
 		} else {
 			$resposta =  "Desculpe, houve um erro interno no envio da imagem. Tente novamente por favor.";
 		}

@@ -35,14 +35,12 @@ $prodInativo = 34;
 				  <ul>
 					 <li><a href='cadastroProduto.php'><span>Cadastro</span></a></li>
 					 <li><a href='editarProduto.php'><span>Edição</span></a></li>
-					 <li class='last'><a href='pesquisaProduto.php'><span>Pesquisar</span></a></li>
 				  </ul>
 			   </li>
 			   <li class='has-sub last'><a href='#'><span>Categorias</span></a>
 				  <ul>
 					 <li><a href='cadastroCategoria.php'><span>Cadastro</span></a></li>
 					 <li><a href='editarCategoria.php'><span>Edição</span></a></li>
-					 <li class='last'><a href='pesquisaCategoria.php'><span>Pesquisar</span></a></li>
 				  </ul>
 			   </li>
 			</ul>

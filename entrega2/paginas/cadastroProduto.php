@@ -78,7 +78,7 @@ function MascaraMoeda(objTextBox, SeparadorMilesimo, SeparadorDecimal, e){
 
 <body bgcolor="#E0E0E0">
 	<table class="tabelaMenu" align="left">
-		<tr> <p class="ola">Bem vindo, <?php /*echo  $_SESSION['user'];*/ ?>!</p></tr>
+		<tr> <p class="ola">Bem vindo, <?php echo  $_SESSION['user']; ?>!</p></tr>
 		<tr><td> 
 			<div id='cssmenu'>
 			<ul>
@@ -87,14 +87,12 @@ function MascaraMoeda(objTextBox, SeparadorMilesimo, SeparadorDecimal, e){
 				  <ul>
 					 <li><a href='cadastroProduto.php'><span>Cadastro</span></a></li>
 					 <li><a href='editarProduto.php'><span>Edição</span></a></li>
-					 <li class='last'><a href='pesquisaProduto.php'><span>Pesquisar</span></a></li>
 				  </ul>
 			   </li>
 			   <li class='has-sub last'><a href='#'><span>Categorias</span></a>
 				  <ul>
 					 <li><a href='cadastroCategoria.php'><span>Cadastro</span></a></li>
 					 <li><a href='editarCategoria.php'><span>Edição</span></a></li>
-					 <li class='last'><a href='pesquisaCategoria.php'><span>Pesquisar</span></a></li>
 				  </ul>
 			   </li>
 			</ul>
